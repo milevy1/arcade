@@ -77,4 +77,21 @@ router.put('/:id', function(req, res, next) {
     });
 });
 
+// Delete a single game
+router.delete('/:id', function(req, res, next) {
+  Game.destroy({
+    where: {
+            id: req.params.id
+            }
+  })
+    .then(game => {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(204);
+    })
+    .catch(error => {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(500).send({error})
+    });
+});
+
 module.exports = router; // this should stay at the bottom of the file
